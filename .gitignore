@@ -37,8 +37,6 @@ wheels/
 
 # Backend
 backend/uploads/
-backend/images/*
-!backend/images/.gitkeep
 
 # Frontend
 frontend/node_modules/
