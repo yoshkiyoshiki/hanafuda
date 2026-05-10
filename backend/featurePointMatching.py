@@ -12,6 +12,32 @@ from multiprocessing import Pool, cpu_count
 IMAGE_URL = r"C:\Users\hanafuda\koikoi-app\frontend\assets\images\sample5.png"
 TEMPLATE_DIR = "./images"  # テンプレート画像が保存されているディレクトリ
 
+# テンプレートキャッシュ
+_TEMPLATES_CACHE = None
+
+def load_templates():
+    """テンプレート画像をメモリにロード（初回起動時に一度だけ実行）"""
+    global _TEMPLATES_CACHE
+    if _TEMPLATES_CACHE is not None:
+        return _TEMPLATES_CACHE
+    
+    templates = []
+    for file in os.listdir(TEMPLATE_DIR):
+        if not file.lower().endswith((".jpg", ".jpeg")):
+            continue
+        
+        path = os.path.join(TEMPLATE_DIR, file)
+        template = cv2.imread(path)
+        
+        if template is None:
+            continue
+        
+        kp, des = get_features(template)
+        templates.append((file, kp, des))
+    
+    _TEMPLATES_CACHE = templates
+    return templates
+
 # =========================
 # 画像ダウンロード
 # =========================
@@ -240,17 +266,8 @@ def analyze_image(image_path):
 
     cards = detect_cards(image)
 
-    templates = []
-
-    for file in os.listdir(TEMPLATE_DIR):
-        if not file.lower().endswith((".jpg", ".jpeg")):
-            continue
-
-        path = os.path.join(TEMPLATE_DIR, file)
-        template = cv2.imread(path)
-
-        kp, des = get_features(template)
-        templates.append((file, kp, des))
+    # キャッシュされたテンプレートを使用
+    templates = load_templates()
 
     results_json = []
 
