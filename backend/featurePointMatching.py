@@ -9,7 +9,7 @@ from multiprocessing import Pool, cpu_count
 # 設定
 # =========================
 # 今はpythonファイル内にURLをハードコードしているが、将来的にはフロントエンドから渡す形にする予定
-IMAGE_URL = r"C:\Users\hanafuda\koikoi-app\frontend\assets\images\sample5.png"
+IMAGE_URL = r"C:\Users\hanafuda_cal\koikoi-app\frontend\assets\images\sample1.jpg"
 TEMPLATE_DIR = "./images"  # テンプレート画像が保存されているディレクトリ
 
 # テンプレートキャッシュ
@@ -119,9 +119,6 @@ def refine_card_inner(card_img):
     shrink_ratio = 0.90
     pts_inner = (pts - center) * shrink_ratio + center
 
-    # ★ ここでも順序を保証（念のため）
-    pts_inner = order_points(pts_inner)
-
     dst = np.array([
         [0, 0],
         [199, 0],
@@ -132,10 +129,10 @@ def refine_card_inner(card_img):
     M = cv2.getPerspectiveTransform(pts_inner, dst)
     warped = cv2.warpPerspective(card_img, M, (200, 300))
 
-    # ★ 縦長を保証（保険）
-    h, w = warped.shape[:2]
-    if w > h:
-        warped = cv2.rotate(warped, cv2.ROTATE_90_CLOCKWISE)
+    # # ★ 縦長を保証（保険）
+    # h, w = warped.shape[:2]
+    # if w > h:
+    #     warped = cv2.rotate(warped, cv2.ROTATE_90_CLOCKWISE)
 
     return warped
 
@@ -185,8 +182,8 @@ def detect_cards(image):
             y = 0
 
         card_crop = image[y:y+h, x:x+w]
-        refine_card_img = refine_card_inner(card_crop)
-        cards.append(refine_card_img)
+        #refine_card_img = refine_card_inner(card_crop)
+        cards.append(card_crop)
 
         # ★ 描画
         cv2.drawContours(draw_img, [box], 0, (0, 255, 0), 2)
@@ -292,8 +289,8 @@ def analyze_image(image_path):
 
     return results_json
 
-def test():
-    return "test"
+# def test():
+#     return "test"
 
 # def main():
 #     image = cv2.imread(IMAGE_URL)
