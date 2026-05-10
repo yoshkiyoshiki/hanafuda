@@ -60,7 +60,7 @@ export default function KoikoiApp() {
         //ブラウザが自動で適切なContent-Typeとboundaryを設定するため、ヘッダーからContent-Typeを削除
       });
       const data = await response.json();
-
+      console.log('サーバーからの応答:', data);
       // サーバーから返されたカードIDを選択
       if (data.result.length > 0) {
         const recognizedCardIds = data.result.map((item) => item.cardId);
