@@ -40,7 +40,7 @@ export default function KoikoiApp() {
   // 画像をサーバーに送信
   const sendImageByUri = async (imageUri: string) => {
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 15000); // 15秒でタイムアウト
+    const timeoutId = setTimeout(() => controller.abort(), 60000); // 60秒でタイムアウト
 
     try {
       const formData = new FormData();
@@ -90,11 +90,11 @@ export default function KoikoiApp() {
     try {
       setIsProcessing(true);
       const photo = await cameraRef.current.takePictureAsync({
-        quality: 0.8,
+        quality: 0.5,
         base64: false,
         skipProcessing: true,
-        width: Math.round(width * 0.9),
-        height: Math.round(width * 1.4),
+        width: Math.round(width * 0.7),
+        height: Math.round(width * 1.1),
       });
       
       // 撮影した画像をサーバーに送信
