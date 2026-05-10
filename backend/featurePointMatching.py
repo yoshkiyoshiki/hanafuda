@@ -292,6 +292,9 @@ def analyze_image(image_path):
 
     return results_json
 
+def test():
+    return "test"
+
 # def main():
 #     image = cv2.imread(IMAGE_URL)
 

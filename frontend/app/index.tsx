@@ -40,7 +40,7 @@ export default function KoikoiApp() {
   // 画像をサーバーに送信
   const sendImageByUri = async (imageUri: string) => {
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 30000); // 30秒でタイムアウト
+    const timeoutId = setTimeout(() => controller.abort(), 15000); // 15秒でタイムアウト
 
     try {
       const formData = new FormData();
