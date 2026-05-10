@@ -29,8 +29,7 @@ except Exception as e:
     print(f"Warning: Failed to load templates: {e}")
     TEMPLATES_CACHE = []
 
-@app.get("/", methods=["GET", "HEAD"])
-@app.head("/")
+@app.get("/")
 async def root():
     return {"message": "Hanafuda API is running"}
 
