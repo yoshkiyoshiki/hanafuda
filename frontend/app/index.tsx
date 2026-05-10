@@ -1,6 +1,5 @@
 import { CARDS, MONTH_NAMES } from '@/constants/cards';
 import { evaluateHands } from '@/constants/handEvaluator';
-import { API_ENDPOINTS } from '@/constants/env';
 import React, { useState, useRef, useEffect } from 'react';
 import { Asset } from "expo-asset";
 import { CameraView, useCameraPermissions } from 'expo-camera';
@@ -40,7 +39,7 @@ export default function KoikoiApp() {
   // 画像をサーバーに送信
   const sendImageByUri = async (imageUri: string) => {
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 60000); // 60秒でタイムアウト
+    const timeoutId = setTimeout(() => controller.abort(), 15000); // 15秒でタイムアウト
 
     try {
       const formData = new FormData();
