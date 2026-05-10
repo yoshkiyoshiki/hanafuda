@@ -53,7 +53,7 @@ export default function KoikoiApp() {
         type: type,
       } as any);
 
-      const response = await fetch(API_ENDPOINTS.ANALYZE, {
+      const response = await fetch("https://hanafuda-6bs6.onrender.com/analyze", {
         method: "POST",
         body: formData,
         signal: controller.signal,

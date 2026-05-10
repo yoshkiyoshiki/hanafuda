@@ -37,7 +37,7 @@ wheels/
 
 # Backend
 backend/uploads/
-backend/images/*
+#backend/images/*
 
 # Frontend
 frontend/node_modules/
